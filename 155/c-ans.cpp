@@ -1,13 +1,5 @@
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-
-#include <map>
-using std::map;
-
-#include <string>
-using std::string;
+#include <bits/stdc++.h>
+using namespace std;
 
 map<string, int> memo;
 
