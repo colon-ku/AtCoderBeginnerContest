@@ -4,6 +4,7 @@
 
   created at: 2020-03-01 20:45:15
                 2020-03-03 18:40:00
+                2020-03-07 18:35:10
 */
 
 #include <bits/stdc++.h>
@@ -36,16 +37,37 @@ int main()
     for (int i = 0; i < n; i++)
         cin >> s[i];
 
-    if (n == 1) {
-        cout << s[0] << endl;
-        return 0;
+    vector<pair<int, string>> cnt;
+    for (int i = 0; i < n; i++) {
+        int con = 1;
+        int make_it_count = 1;
+        for (int j = 0; con && j < cnt.size(); j++) {
+            if (s[i] == cnt[j].second) {
+                make_it_count = 0;
+                cnt[j].first++;
+                con = 0;
+            }
+        }
+
+        if (make_it_count) {
+            cnt.push_back(make_pair(1, s[i]));
+        }
     }
 
-    sort(all(s));
+    sort(all(cnt));
+    reverse(all(cnt));
 
-    vector<pair<string, int>> cnt(n, make_pair("", 0));
-    for (int i = 0; i <= n-2; i++) {
-        
+    int m = cnt[0].first;
+    vector<string> ans;
+    for (int i = 0; i < cnt.size(); i++) {
+        if (m == cnt[i].first) {
+            ans.push_back(cnt[i].second);
+        }
+    }
+
+    sort(all(ans));
+    for (int i = 0; i < ans.size(); i++) {
+        cout << ans[i] << endl;
     }
 
     return 0;
