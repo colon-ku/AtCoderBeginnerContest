@@ -3,6 +3,7 @@
   GitHub account: colon-ku
 
   created at: 2020-02-22 19:02:57
+                2020-03-09 22:42:07
 */
 
 #include <bits/stdc++.h>
@@ -11,6 +12,7 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define rep(x, y) for (int x = 0; x < y; x++)
 #define MOD 1000000007
+#define cout_precision(x) cout << fixed << setprecision(x)
 
 typedef long long LL;
 typedef long double LD;
@@ -29,25 +31,24 @@ string s_global = oss_global.str();
 
 int main()
 {
-    std::ifstream in("input.txt");
-    std::cin.rdbuf(in.rdbuf());
-
     int n, k;
     cin >> n >> k;
-    vector<int> p(n+1);
+    vector<int> p(n+1, 0.0);
     for (int i = 1; i <= n; i++)
         cin >> p[i];
 
-    vector<float> t(n+1, 0.0);
-    for (int i = 1; i <= n; i++) {
-        float e = (0.5)*( p[i] + 1 );
-        t[i] = t[i-1] + e;
-    }
+    vector<double> e(n+1, 0.0);
+    for (int i = 1; i <= n; i++)
+        e[i] = (0.5)*(p[i] + 1);
 
-    float ans = t[k];
+    vector<double> t(n+1, 0.0);
+    for (int i = 1; i <= n; i++)
+        t[i] = t[i-1] + e[i];
+
+    double ans = 0.0;
     for (int i = k; i <= n; i++) {
-        float s = t[i] - t[i-k];
-        if (s > ans) ans = s;
+        double sum = t[i] - t[i-k];
+        if (ans < sum) ans = sum;
     }
 
     printf("%.12f\n", ans);

@@ -22,7 +22,7 @@ bool compare_by_b(pair<int, int> a, pair<int, int> b)
     }
 }
 
-LL modpower(n, m, mod) {
+LL modpower(LL n, LL m, LL mod) {
     if (m == 0) {
         return 1;
     } else if (m % 2 == 0) {
@@ -33,21 +33,21 @@ LL modpower(n, m, mod) {
     }
 }
 
-LL modinv(n, mod) {
-    return modpower(n, mod-2);
+LL modinv(LL n, LL mod) {
+    return modpower(n, mod-2, mod);
 }
 
-LL modcombination(LL n, LL r, mod) {
+LL modcombination(LL n, LL r, LL mod) {
     LL ret = 1;
 
     for (int i = 0; i < r; i++) {
         ret *= (n-i);
         ret %= mod;
-        ret *= modinv(i+1);
+        ret *= modinv(i+1, mod);
         ret % mod;
     }
 
-    return ret;
+    return ret % mod;
 }
 
 ostringstream oss_global;
@@ -55,5 +55,5 @@ string s_global = oss_global.str();
 
 int main()
 {
-
+    
 }
