@@ -43,14 +43,17 @@ int main()
     }
     reverse(all(mod));
 
+    vector<int> u(n+1);
+    u[n] = 0;
+    for (int i = n-1; i >= 0; i--) {
+        u[i] = (10*mod[i] + u[i+1]) % p;
+    }
+
     int ans = 0;
-    for (int length = 1; length <= n; length++) {
-        for (int i = 0; i < n-length+1; i++) {
-            int sum = 0;
-            for (int j = 0; j < length; j++) {
-                sum += mod[i+j];
-            }
-            if (sum % p == 0) ans++;
+    for (int i = 0; i < n; i++) {
+        for (int length = 1; i+length <= n-1; i++) {
+            int temp = u[i] - u[i+length];
+            if (temp % p == 0) ans++;
         }
     }
 

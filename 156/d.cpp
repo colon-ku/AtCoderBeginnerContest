@@ -27,8 +27,32 @@ bool compare_by_b(pair<int, int> a, pair<int, int> b)
 ostringstream oss_global;
 string s_global = oss_global.str();
 
-LL factorial(LL n, LL p) {
-    
+LL power(LL n, LL m) {
+    if (m == 0) {
+        return 1;
+    } else if (m % 2 == 0) {
+        LL p = power(n, m/2);
+        return p*p % MOD;
+    } else {
+        return n*power(n, m-1) % MOD;
+    }
+}
+
+LL modinv(LL n) {
+    return power(n, MOD-2);
+}
+
+LL combination(LL n, LL r) {
+    LL ret = 1;
+
+    for (int i = 0; i < r; i++) {
+        ret *= (n-i);
+        ret %= MOD;
+        ret *= modinv(i+1);
+        ret %= MOD;
+    }
+
+    return ret;
 }
 
 int main()
@@ -36,10 +60,13 @@ int main()
     LL n, a, b;
     cin >> n >> a >> b;
 
-    LL ans = ((1<<n)-1) % MOD;
-    ans -= factorial(n, MOD)/( factorial(a, MOD) * factorial(n-a, MOD) ) % MOD;
-    ans -= factorial(n, MOD)/( factorial(b, MOD) * factorial(n-b, MOD) ) % MOD;
+    LL ans = power(2, n) - 1;
+    ans -= combination(n, a);
+    ans -= combination(n, b);
+
+    for (; ans < 0; ans += MOD) {}
 
     cout << ans << endl;
+
     return 0;
 }
