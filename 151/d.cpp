@@ -1,8 +1,6 @@
 /*
-  author: ruruvuvu
-  GitHub account: colon-ku
-
-  created at: 2020-01-12 21:19:20
+    飲んだ魔剤で家が建つ。
+    created at: 
 */
 
 #include <bits/stdc++.h>
@@ -11,7 +9,6 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define rep(x, y) for (int x = 0; x < y; x++)
 #define MOD 1000000007
-#define INF INT_MAX
 
 typedef long long LL;
 typedef long double LD;
@@ -25,6 +22,34 @@ bool compare_by_b(pair<int, int> a, pair<int, int> b)
     }
 }
 
+LL modpower(LL n, LL m, LL mod) {
+    if (m == 0) {
+        return 1;
+    } else if (m % 2 == 0) {
+        LL p = modpower(n, m/2, mod);
+        return p*p % mod;
+    } else {
+        return n*modpower(n, m-1, mod) % mod;
+    }
+}
+
+LL modinv(LL n, LL mod) {
+    return modpower(n, mod-2, mod);
+}
+
+LL modcombination(LL n, LL r, LL mod) {
+    LL ret = 1;
+
+    for (int i = 0; i < r; i++) {
+        ret *= (n-i);
+        ret %= mod;
+        ret *= modinv(i+1, mod);
+        ret % mod;
+    }
+
+    return ret % mod;
+}
+
 ostringstream oss_global;
 string s_global = oss_global.str();
 
@@ -32,82 +57,62 @@ int main()
 {
     int h, w;
     cin >> h >> w;
-    vector<vector<char>> s(h+2);
+    vector<char> putty(w+2, '#');
+    vector<vector<char>> maze(h+2, putty); //初期状態ではすべて壁で埋められている
     for (int i = 0; i < h; i++) {
-        string ipt;
-        cin >> ipt;
-        s[i+1].push_back('#');
+        string s;
+        cin >> s;
         for (int j = 0; j < w; j++) {
-            s[i+1].push_back(ipt[j]);
+            if (s[j] == '.') maze[i+1][j+1] = '.';
         }
-        s[i+1].push_back('#');
     }
 
-    for (int j = 0; j < w+2; j++) {
-        s[0].push_back('#');
-        s[h+1].push_back('#');
-    }
+    int ans = 0;
+    int dir[4][2] = {{-1,0},{0,-1},{0,1},{1,0}};
+    for (int i = 1; i <= h; i++) {
+        for (int j = 1; j <= w; j++) {
+            //選ばれたセルが通路のとき、探索開始
+            if (maze[i][j] == '.') {
+                for (int x = 1; x <= h; x++) {
+                    for (int y = 1; y <= w; y++) {
+                        //探索対象が通路であり、かつ根ノードと異なる
+                        if (maze[x][y] == '.' && (i - x || j - y)) {
+                            int dist[h+2][w+2] = {-1};
 
-    int ans = -1;
-    for (int x1 = 1; x1 <= h; x1++) {
-        for (int y1 = 1; y1 <= w; y1++) {
-            for (int x2 = 1; x2 <= h; x2++) {
-                for (int y2 = 1; y2 <= w; y2++) {
-                    if (x1 - x2 || y1 - y2) {
+                            pair<int, int> v = make_pair(i, j);
+                            queue<pair<int, int>> q;
+                            dist[v.first][v.second] = 0;
+                            q.push(v);
 
-                        vector<int> dist(h*w, INF); // distance(x,y) = dist[x + h*y - h - 1]
-                        vector<int> determined(h*w, 0);
-                        vector<pair<int, int>> q;
-                        for (int i = 0; i < h; i++) {
-                            for (int j = 0; j < w; j++) {
-                                q.push_back(make_pair(i+1, j+1));
-                            }
-                        }
-                        dist[x1 + h*y1 - h - 1] = 0;
-                        while (determined[x2 + h*y2 - h - 1] - 1) {
-                            int minx, miny, m_coor, m_dist;
-                            m_dist = INF;
-                            for (int i = 0; i < q.size(); i++) {
-                                if (m_dist > dist[q[i].first + h*q[i].second - h - 1]) {
-                                    m_dist = dist[q[i].first + h*q[i].second - h - 1];
-                                    m_coor = q[i].first + h*q[i].second - h - 1;
-                                }
-                            }
-                            minx = m_coor % h + 1;
-                            miny = m_coor / h + 1;
-                            determined[minx + h*miny - h - 1] = 1;
+                            while (!q.empty()) {
+                                pair<int, int> node = q.front();
+                                q.pop();
 
+                                for (int k = 0; k < 4; k++) {
+                                    pair<int, int> adj = make_pair(node.first+dir[k][0], node.second+dir[k][1]);
+                                    if (maze[adj.first][adj.second] == '.' && dist[adj.first][adj.second] < 0) {
+                                        dist[adj.first][adj.second] = dist[node.first][node.second] + 1;
+                                        q.push(adj);
 
-                            pair<int, int> u, v;
-                            for (int i = 0; i < q.size(); i++) {
-                                if (q[i] == make_pair(minx, miny)) {
-                                    u = q[i];
-                                    q.erase(q.begin() + i);
+                                        cout << "根ノード：" << v.first << " " << v.second << endl;
+                                        cout << "探索対象：" << x << " " << y << endl;
+                                        cout << "　キュー：" << node.first << " " << node.second << endl;
+                                        cout << "　　近接：" << adj.first << " " << adj.second << endl;
+                                        cout << "　　距離：" << dist[adj.first][adj.second] << endl << endl;
+                                    } else cout << "hello" << endl;
                                 }
                             }
 
-                            for (int mvx = 0; mvx <= 1; mvx++) {
-                                for (int mvy = 0; mvy <= 1; mvy++) {
-                                    if (mvx - mvy) {
-                                        v = make_pair(u.first + mvx, u.second + mvy);
-                                        if (s[v.first][v.second] == '.' && dist[v.first + h*v.second - h - 1] > dist[u.first + h*u.second - h - 1] + 1) {
-                                            dist[v.first + h*v.second - h - 1] = dist[u.first + h*u.second - h - 1] + 1;
-                                        }
-                                    }
-                                }
-                            }
+                            int d = dist[x][y];
+                            if (ans < d) ans = d;
                         }
-                        
-                        if (ans < dist[x2 + h*y2 - h - 1]) {
-                            ans = dist[x2 + h*y2 - h - 1];
-                        }
-
                     }
                 }
             }
         }
     }
-    
+
     cout << ans << endl;
+
     return 0;
 }
