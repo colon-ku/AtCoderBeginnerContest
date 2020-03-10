@@ -77,29 +77,33 @@ int main()
                     for (int y = 1; y <= w; y++) {
                         //探索対象が通路であり、かつ根ノードと異なる
                         if (maze[x][y] == '.' && (i - x || j - y)) {
-                            int dist[h+2][w+2] = {-1};
+                            int dist[h+2][w+2] = {0};
+                            int visit[h+2][w+2] = {0};
 
                             pair<int, int> v = make_pair(i, j);
                             queue<pair<int, int>> q;
-                            dist[v.first][v.second] = 0;
+                            visit[v.first][v.second] = 1;
                             q.push(v);
 
                             while (!q.empty()) {
                                 pair<int, int> node = q.front();
                                 q.pop();
 
+                                if (node.first == x && node.second == y) break;
+
                                 for (int k = 0; k < 4; k++) {
                                     pair<int, int> adj = make_pair(node.first+dir[k][0], node.second+dir[k][1]);
-                                    if (maze[adj.first][adj.second] == '.' && dist[adj.first][adj.second] < 0) {
+                                    if (maze[adj.first][adj.second] == '.' && visit[adj.first][adj.second] == 0) {
                                         dist[adj.first][adj.second] = dist[node.first][node.second] + 1;
+                                        visit[adj.first][adj.second] = 1;
                                         q.push(adj);
 
-                                        cout << "根ノード：" << v.first << " " << v.second << endl;
-                                        cout << "探索対象：" << x << " " << y << endl;
-                                        cout << "　キュー：" << node.first << " " << node.second << endl;
-                                        cout << "　　近接：" << adj.first << " " << adj.second << endl;
-                                        cout << "　　距離：" << dist[adj.first][adj.second] << endl << endl;
-                                    } else cout << "hello" << endl;
+                                        // cout << "根ノード：" << v.first << " " << v.second << endl;
+                                        // cout << "探索対象：" << x << " " << y << endl;
+                                        // cout << "　キュー：" << node.first << " " << node.second << endl;
+                                        // cout << "　　近接：" << adj.first << " " << adj.second << endl;
+                                        // cout << "　　距離：" << dist[adj.first][adj.second] << endl << endl;
+                                    }
                                 }
                             }
 
