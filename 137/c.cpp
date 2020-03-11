@@ -1,11 +1,6 @@
 /*
-  ∧,,∧
-( 'ω' )つ ＜WA,またお前か！！　
-（m9 ＼ 　　
-　 ＼　 ＼
-　 　 ) ) ＼
-　 ／／ ＼ ＼
-　 (＿） 　 (＿)
+    飲んだ魔剤で家が建つ。
+    created at: 2020-03-11 22:21:39
 */
 
 #include <bits/stdc++.h>
@@ -27,50 +22,80 @@ bool compare_by_b(pair<int, int> a, pair<int, int> b)
     }
 }
 
+LL modpower(LL n, LL m, LL mod) {
+    if (m == 0) {
+        return 1;
+    } else if (m % 2 == 0) {
+        LL p = modpower(n, m/2, mod);
+        return p*p % mod;
+    } else {
+        return n*modpower(n, m-1, mod) % mod;
+    }
+}
+
+LL modinv(LL n, LL mod) {
+    return modpower(n, mod-2, mod);
+}
+
+LL modcombination(LL n, LL r, LL mod) {
+    LL ret = 1;
+
+    for (int i = 0; i < r; i++) {
+        ret *= (n-i);
+        ret %= mod;
+        ret *= modinv(i+1, mod);
+        ret % mod;
+    }
+
+    return ret % mod;
+}
+
 ostringstream oss_global;
 string s_global = oss_global.str();
 
 int main()
 {
-    int N;
-    cin >> N;
-    vector<string> s(N, "");
-    for (int i = 0; i < N; i++)
+    int n;
+    cin >> n;
+    vector<string> s(n);
+    for (int i = 0; i < n; i++)
         cin >> s[i];
 
-    vector<string> cnt(N, "");
-    for (int i = 0; i < N; i++) {
-        cnt[i] = "00000000000000000000000000"; //26 characters
+    vector<string> cnt(n, "00000000000000000000000000");
+    for (int i = 0; i < n; i++) {
+        for (int k = 0; k < 10; k++) {
+            char c = s[i][k];
+            int index = c - 'a';
+            int cur = cnt[i][index] - '0';
 
-        for (int j = 0; j < 10; j++) {
-            int c = s[i][j] - 'a';
-            int tar = cnt[i][c] - '0';
-            if (tar <= 8) {
-                cnt[i][c] = tar + 1 + '0';
-            } else {
-                cnt[i][c] = 'a';
-            }
+            if (cur < 9) cnt[i][k] = cur+1 - '0';
+            else cnt[i][k] = 'a';
         }
     }
 
+    for (int i = 0; i < n; i++)
+        cout << cnt[i] << endl;
+
     sort(all(cnt));
 
-    clock_t start = clock();
-    LL ans = 0;
-    for (int i = 0; i <= N-2; ) {
-        int j = i+1;
-        for (; j <= N-1; j++)
-            if (cnt[i] != cnt[j]) break;
-
-        int temp = j-i;
-        ans += (temp--)*temp/2;
-        i = j;
+    int members = 1;
+    vector<int> group;
+    for (int i = 1; i < n; i++) {
+        if (cnt[i] != cnt[i-1]) {
+            group.push_back(members);
+            members = 1;
+        } else {
+            members++;
+        }
     }
-    clock_t end = clock();
 
-    const double time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000.0;
-    printf("time %lf[ms]\n", time);
+    LL ans = 0;
+    for (int i = 0; i < group.size(); i++) {
+        int g = group[i];
+        ans += ((LL)g*g - g)/2;
+    }
 
     cout << ans << endl;
+
     return 0;
 }
