@@ -1,8 +1,6 @@
 /*
-  author: ruruvuvu
-  GitHub account: colon-ku
-
-  created at: 2020-01-10 21:07:12
+    飲んだ魔剤で家が建つ。
+    created at: 2020-03-11 20:19:28
 */
 
 #include <bits/stdc++.h>
@@ -24,6 +22,42 @@ bool compare_by_b(pair<int, int> a, pair<int, int> b)
     }
 }
 
+LL modpower(LL n, LL m, LL mod) {
+    if (m == 0) {
+        return 1;
+    } else if (m % 2 == 0) {
+        LL p = modpower(n, m/2, mod);
+        return p*p % mod;
+    } else {
+        return n*modpower(n, m-1, mod) % mod;
+    }
+}
+
+LL modinv(LL n, LL mod) {
+    return modpower(n, mod-2, mod);
+}
+
+LL modcombination(LL n, LL r, LL mod) {
+    LL ret = 1;
+
+    for (int i = 0; i < r; i++) {
+        ret *= (n-i);
+        ret %= mod;
+        ret *= modinv(i+1, mod);
+        ret % mod;
+    }
+
+    return ret % mod;
+}
+
+int factorial(int n) {
+    int ret = 1;
+    for (int i = 2; i <= n; i++)
+        ret *= i;
+    
+    return ret;
+}
+
 ostringstream oss_global;
 string s_global = oss_global.str();
 
@@ -31,66 +65,39 @@ int main()
 {
     int n;
     cin >> n;
-    vector<int> p(n), q(n), r(n);
+    vector<int> p(n), q(n);
     for (int i = 0; i < n; i++)
         cin >> p[i];
     for (int i = 0; i < n; i++)
         cin >> q[i];
 
-    int k, isLarge;
-    for (int i = 0; i < n; i++) {
-        if (p[i] < q[i]) {
-            k = i - 1;
-            isLarge = 0;
-            break;
-        } else if (p[i] > q[i]) {
-            k = i - 1;
-            isLarge = 1;
-            break;
-        }
-    }
-
-    if (isLarge) {
-        vector<int> swap(n);
-        swap = p;
-        p = q;
-        q = swap;
-    }
-
-    r = p;
-
-    int ans = -1;
-    for (int i = 0; ans < 0; i++) {
-        if (r == q) ans = i;
-
-        int cng = -1;
-        for (int j = n-1; j >= 1; j++) {
-            if (r[j-1] < r[j]) cng = j-1;
-        }
-
-        vector<int> cp(n-cng);
-        int value = r[cng];
-        for (int j = 0; j < n - cng; j++) {
-            cp[j] = r[j+cng];
-        }
-        sort(all(cp));
-
-        for (int j = 0; j < n - cng; j++) {
-            if (cp[j] > value) {
-                int sw = cp[0];
-                cp[0] = cp[j];
-                cp[j] = sw;
+    int a, b;
+    a = b = 0;
+    vector<int> v(n);
+    iota(all(v), 1);
+    do {
+        
+        //v, pを比較
+        for (int i = 0; i < n; i++) {
+            int diff = v[i] - p[i];
+            if (diff < 0) {
+                a++;
                 break;
-            }
+            } else if (diff > 0) break;
         }
 
-        for (int j = cng; j < n; j++) {
-            r[j] = cp[j];
+        //v, qを比較
+        for (int i = 0; i < n; i++) {
+            int diff = v[i] - q[i];
+            if (diff < 0) {
+                b++;
+                break;
+            } else if (diff > 0) break;
         }
+        
+    } while (next_permutation(all(v)));
 
-        cout << i << endl;
-    }
+    cout << abs(a - b) << endl;
 
-    cout << ans << endl;
     return 0;
-} 
+}
