@@ -1,13 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-map<string, int> memo;
-
 int main(void)
 {
-    int n;
+    map<string, int> memo;
 
-    scanf("%lld", &n);
+    int n;
+    cin >> n;
     for (int i = 0; i < n; i++) {
         string s;
         cin >> s;
@@ -16,9 +15,9 @@ int main(void)
     }
 
     int maxv = 0;
-    for (const suto& x : memo) {
+    for (const auto& x : memo) {
         int v = x.second;
-        if (v > maxv) maxv = v;
+        if (maxv < v) maxv = v;
     }
 
     for (auto it = memo.begin(); it != memo.end(); it++) {
