@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 2020-03-14 21:19:01
+    created at: 2020-03-17 13:16:17
 */
 
 #include <bits/stdc++.h>
@@ -55,29 +55,35 @@ string s_global = oss_global.str();
 
 int main()
 {
-    int n;
-    cin >> n;
-    vector<int> h(n);
-    for (int i = 0; i < n; i++)
-        cin >> h[i];
+    string s;
+    cin >> s;
 
-    int ok = 1;
-    for (int i = n-1; i >= 1; i--) {
-        int diff = h[i] - h[i-1];
-    
-        if (diff < -1) {
-            ok = 0;
-        } else if (diff == -1) {
-            h[i-1]--;
+    int n = s.length();
+    char c[4] = {'A', 'C', 'G', 'T'};
+    int m, temp;
+    m = temp = 0;
+    for (int i = 0; i < n; i++) {
+        int found = 0;
+        for (int j = 0; j < 4; j++) {
+            if (s[i] == c[j]) {
+                found = 1;
+            }
+        }
+
+        if (found) {
+            temp++;
+        } else {
+            if (m < temp) {
+                m = temp;
+            }
+
+            temp = 0;
         }
     }
 
-    for (int i = 0; i < n-1; i++) {
-        if (h[i] > h[i+1]) ok = 0;
-    }
+    if (m < temp) m = temp;
 
-    if (ok) cout << "Yes" << endl;
-    else cout << "No" << endl;
+    cout << m << endl;
 
     return 0;
 }
