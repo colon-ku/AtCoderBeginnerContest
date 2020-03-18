@@ -9,6 +9,7 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define rep(x, y) for (int x = 0; x < y; x++)
 #define MOD 1000000007
+#define INF 1000000000
 
 typedef long long LL;
 typedef long double LD;
@@ -53,15 +54,40 @@ LL modcombination(LL n, LL r, LL mod) {
 ostringstream oss_global;
 string s_global = oss_global.str();
 
+int n, a, b, c, l[INF];
+
+int dfs(int cur, int x, int y, int z) {
+    if (cur >= n) {
+        if (x > 0 && y > 0 && z > 0) {
+            int ret = 0;
+            ret += abs(a-x);
+            ret += abs(b-y);
+            ret += abs(c-z);
+            ret -= 30;
+            return ret;
+        } else {
+            return INF;
+        }
+    } else {
+        int ret0, ret1, ret2, ret3;
+        ret0 = dfs(cur+1, x, y, z);
+        ret1 = dfs(cur+1, x + l[cur], y, z) + 10;
+        ret2 = dfs(cur+1, x, y + l[cur], z) + 10;
+        ret3 = dfs(cur+1, x, y, z + l[cur]) + 10;
+
+        int ret = min({ret0, ret1, ret2, ret3});
+        return ret;
+    }
+}
+
 int main()
 {
-    int n, a, b, c;
     cin >> n >> a >> b >> c;
-    vector<int> l(n);
     for (int i = 0; i < n; i++)
         cin >> l[i];
 
-    
+    int ans = dfs(0, 0, 0, 0);
+    cout << ans << endl;
 
     return 0;
 }
