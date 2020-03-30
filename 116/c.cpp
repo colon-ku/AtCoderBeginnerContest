@@ -1,14 +1,15 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-03-30 17:08:06
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
 #define all(x) (x).begin(),(x).end()
-#define rep(x, y) for (int x = 0; x < y; x++)
+#define rev(x) greater<(x)>()
 #define MOD 1000000007
+#define INF 1000000000
 
 typedef long long LL;
 typedef long double LD;
@@ -55,5 +56,16 @@ string s_global = oss_global.str();
 
 int main()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> h(n);
+    for (int i = 0; i < n; i++) 
+        cin >> h[i];
+
+    int sum = h[0];
+    for (int i = 0; i < n-1; i++) {
+        sum += max(0, h[i+1]-h[i]);
+    }
+    cout << sum << endl;
+    return 0;
 }
