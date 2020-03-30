@@ -51,6 +51,11 @@ LL modcombination(LL n, LL r, LL mod) {
     return ret % mod;
 }
 
+int gcd(int k, int l) {
+    if (l > 0) return gcd(l, k%l);
+    else return k;
+}
+
 ostringstream oss_global;
 string s_global = oss_global.str();
 
