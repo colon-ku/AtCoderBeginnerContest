@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-05 17:35:48
 */
 
 #include <bits/stdc++.h>
@@ -56,6 +56,9 @@ int gcd(int k, int l) {
     else return k;
 }
 
+ostringstream oss_global;
+string s_global = oss_global.str();
+
 struct UnionFind {
     vector<int> par;
 
@@ -84,5 +87,29 @@ struct UnionFind {
 
 int main()
 {
-    
+    int n, m;
+    cin >> n >> m;
+    vector<int> p(n);
+    for (int i = 0; i < n; i++)
+        cin >> p[i];
+    vector<int> x(m), y(m);
+    for (int i = 0; i < m; i++)
+        cin >> x[i] >> y[i];
+
+    UnionFind tree(n);
+
+    for (int i = 0; i < m; i++) {
+        tree.unite(x[i]-1, y[i]-1);
+    }
+
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        if (tree.same(i, p[i]-1)) {
+            ans++;
+        }
+    }
+
+    cout << ans << endl;
+
+    return 0;
 }
