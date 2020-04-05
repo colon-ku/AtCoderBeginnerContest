@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-05 18:13:02
 */
 
 #include <bits/stdc++.h>
@@ -84,5 +84,27 @@ struct UnionFind {
 
 int main()
 {
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+
+    sort(all(a), rev(int));
+
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+        sum += a[i];
     
+    double nec = (double)sum/(4*m);
+
+    int ok = 1;
+    for (int i = 0; i < m; i++) {
+        if (a[i] < nec) ok = 0;
+    }
+
+    if (ok) cout << "Yes" << endl;
+    else cout << "No" << endl;
+
+    return 0;
 }

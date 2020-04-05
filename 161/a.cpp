@@ -1,13 +1,13 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-05 18:11:44
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
 #define all(x) (x).begin(),(x).end()
-#define rev(x) greater<x>()
+#define rev(x) greater<(x)>()
 #define MOD 1000000007
 #define INF 1000000000
 
@@ -84,5 +84,10 @@ struct UnionFind {
 
 int main()
 {
-    
+    int x, y, z;
+    cin >> x >> y >> z;
+
+    cout << z << " " << x << " " << y << endl;
+
+    return 0;
 }
