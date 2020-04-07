@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-06 17:12:40
 */
 
 #include <bits/stdc++.h>
@@ -23,8 +23,7 @@ bool compare_by_b(pair<int, int> a, pair<int, int> b)
     }
 }
 
-LL modpower(LL n, LL m, LL mod)
-{
+LL modpower(LL n, LL m, LL mod) {
     if (m == 0) {
         return 1;
     } else if (m % 2 == 0) {
@@ -35,13 +34,11 @@ LL modpower(LL n, LL m, LL mod)
     }
 }
 
-LL modinv(LL n, LL mod)
-{
+LL modinv(LL n, LL mod) {
     return modpower(n, mod-2, mod);
 }
 
-LL modcombination(LL n, LL r, LL mod)
-{
+LL modcombination(LL n, LL r, LL mod) {
     LL ret = 1;
 
     for (int i = 0; i < r; i++) {
@@ -54,14 +51,12 @@ LL modcombination(LL n, LL r, LL mod)
     return ret % mod;
 }
 
-int gcd(int k, int l)
-{
+int gcd(int k, int l) {
     if (l > 0) return gcd(l, k%l);
     else return k;
 }
 
-struct UnionFind
-{
+struct UnionFind {
     vector<int> par;
 
     UnionFind(int n) : par(n) {
@@ -89,5 +84,19 @@ struct UnionFind
 
 int main()
 {
-    
+    int a, b;
+    cin >> a >> b;
+
+    int ans = 0;
+    for (int i = 1; i <= 12; i++) {
+        if (i < a) {
+            ans++;
+        } else if (i == a && i <= b) {
+            ans++;
+        }
+    }
+
+    cout << ans << endl;
+
+    return 0;
 }

@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-07 19:48:27
 */
 
 #include <bits/stdc++.h>
@@ -9,7 +9,7 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define rev(x) greater<x>()
 #define MOD 1000000007
-#define INF 1000000000
+#define INF 55555
 
 typedef long long LL;
 typedef long double LD;
@@ -87,7 +87,43 @@ struct UnionFind
     }
 };
 
+int n, p_limit;
+vector<int> p, a;
+
+void find_prime()
+{
+    p_limit = 0;
+    for (int i = 2; i < INF; i++) {
+        int m = sqrt(i);
+        int ok = 1;
+        for (int j = 2; j <= m; j++) {
+            if (i % j == 0) ok = 0;
+        }
+
+        if (ok) {
+            p.push_back(i);
+            p_limit++;
+        }
+    }
+}
+
+void solve()
+{
+    for (int i = 0; i < p_limit; i++)
+        if (p[i] % 5 == 1) a.push_back(p[i]);
+
+    for (int i = 0; i < n; i++) 
+        cout << a[i] << " ";
+    cout << endl;
+}
+
 int main()
 {
-    
+    scanf("%d", &n);
+
+    find_prime();
+
+    solve();
+
+    return 0;
 }

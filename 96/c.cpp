@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-06 17:28:28
 */
 
 #include <bits/stdc++.h>
@@ -9,7 +9,7 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define rev(x) greater<x>()
 #define MOD 1000000007
-#define INF 1000000000
+#define INF 50
 
 typedef long long LL;
 typedef long double LD;
@@ -23,8 +23,7 @@ bool compare_by_b(pair<int, int> a, pair<int, int> b)
     }
 }
 
-LL modpower(LL n, LL m, LL mod)
-{
+LL modpower(LL n, LL m, LL mod) {
     if (m == 0) {
         return 1;
     } else if (m % 2 == 0) {
@@ -35,13 +34,11 @@ LL modpower(LL n, LL m, LL mod)
     }
 }
 
-LL modinv(LL n, LL mod)
-{
+LL modinv(LL n, LL mod) {
     return modpower(n, mod-2, mod);
 }
 
-LL modcombination(LL n, LL r, LL mod)
-{
+LL modcombination(LL n, LL r, LL mod) {
     LL ret = 1;
 
     for (int i = 0; i < r; i++) {
@@ -54,14 +51,12 @@ LL modcombination(LL n, LL r, LL mod)
     return ret % mod;
 }
 
-int gcd(int k, int l)
-{
+int gcd(int k, int l) {
     if (l > 0) return gcd(l, k%l);
     else return k;
 }
 
-struct UnionFind
-{
+struct UnionFind {
     vector<int> par;
 
     UnionFind(int n) : par(n) {
@@ -87,7 +82,59 @@ struct UnionFind
     }
 };
 
+int h, w;
+char s[INF][INF];
+
+int group(int i, int j)
+{
+    int cnt = 1;
+    s[i][j] = '.';
+
+    int v[4][2] = {{i, j-1}, {i-1, j}, {i+1, j}, {i, j+1}};
+    for (int k = 0; k < 4; k++) {
+        int p, q;
+        p = v[k][0]; q = v[k][1];
+
+        if (p >= 0 && p <= h-1 && q >= 0 && q <= w-1) {
+            if (s[p][q] == '#') {
+                cnt += group(p, q);
+            }
+        }
+    }
+
+    return cnt;
+}
+
+void solve()
+{
+    int ok = 1;
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            if (s[i][j] == '#') {
+                int g = group(i, j);
+                if (g <= 1) {
+                    ok = 0;
+                }
+            }
+        }
+    }
+
+    if (ok) cout << "Yes" << endl;
+    else cout << "No" << endl;
+}
+
 int main()
 {
-    
+    cin >> h >> w;
+    for (int i = 0; i < h; i++) {
+        string t;
+        cin >> t;
+        for (int j = 0; j < w; j++) {
+            s[i][j] = t[j];
+        }
+    }
+
+    solve();
+
+    return 0;
 }
