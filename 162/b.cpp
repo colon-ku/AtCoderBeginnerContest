@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-12 21:01:40
 */
 
 #include <bits/stdc++.h>
@@ -89,7 +89,17 @@ struct UnionFind
 
 int main()
 {
-    
+    int n;
+    cin >> n;
+
+    LL ans = 0;
+    for (int i = 1; i <= n; i++) {
+        if (i % 3 > 0 && i % 5 > 0) {
+            ans += i;
+        }
+    }
+
+    cout << ans << endl;
 
     return 0;
 }

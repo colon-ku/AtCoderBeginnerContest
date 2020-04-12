@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-12 22:25:24
 */
 
 #include <bits/stdc++.h>
@@ -89,6 +89,20 @@ struct UnionFind
 
 int main()
 {
+    int n;
+    cin >> n;
+    int k = n/2; //選ぶ整数の数
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    
+    //i = 0~n-1 における Aiの和
+    vector<LL> acm(n);
+    acm[0] = a[0];
+    for (int i = 1; i < n; i++) {
+        acm[i] = acm[i-1] + a[i];
+    }
+
     
 
     return 0;

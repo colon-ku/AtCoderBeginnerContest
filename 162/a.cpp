@@ -1,6 +1,6 @@
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
+    created at: 2020-04-12 20:54:35
 */
 
 #include <bits/stdc++.h>
@@ -89,7 +89,21 @@ struct UnionFind
 
 int main()
 {
-    
+    int n;
+    cin >> n;
+
+    int yes = 0;
+    while (n > 0) {
+        if (n % 10 == 7) {
+            yes = 1;
+            break;
+        } else {
+            n /= 10;
+        }
+    }
+
+    if (yes) cout << "Yes" << endl;
+    else cout << "No" << endl;
 
     return 0;
 }
