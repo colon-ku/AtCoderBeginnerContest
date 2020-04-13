@@ -14,78 +14,11 @@ using namespace std;
 typedef long long LL;
 typedef long double LD;
 
-bool compare_by_b(pair<int, int> a, pair<int, int> b)
-{
-    if (a.second != b.second) {
-        return a.second < b.second;
-    } else {
-        return a.first < b.first;
-    }
-}
-
-LL modpower(LL n, LL m, LL mod)
-{
-    if (m == 0) {
-        return 1;
-    } else if (m % 2 == 0) {
-        LL p = modpower(n, m/2, mod);
-        return p*p % mod;
-    } else {
-        return n*modpower(n, m-1, mod) % mod;
-    }
-}
-
-LL modinv(LL n, LL mod)
-{
-    return modpower(n, mod-2, mod);
-}
-
-LL modcombination(LL n, LL r, LL mod)
-{
-    LL ret = 1;
-
-    for (int i = 0; i < r; i++) {
-        ret *= (n-i);
-        ret %= mod;
-        ret *= modinv(i+1, mod);
-        ret % mod;
-    }
-
-    return ret % mod;
-}
-
 LL gcd(LL k, LL l)
 {
     if (l > 0) return gcd(l, k%l);
     else return k;
 }
-
-struct UnionFind
-{
-    vector<int> par;
-
-    UnionFind(int n) : par(n) {
-        for (int i = 0; i < n; i++) par[i] = i;
-    }
-
-    int root(int x) {
-        if (par[x] == x) return x;
-        return par[x] = root(par[x]);
-    }
-
-    void unite(int x, int y) {
-        int rx = root(x);
-        int ry = root(y);
-        if (rx == ry) return;
-        par[rx] = ry;
-    }
-
-    bool same(int x, int y) {
-        int rx = root(x);
-        int ry = root(y);
-        return rx == ry;
-    }
-};
 
 int bin_pow(int n)
 {
@@ -105,16 +38,15 @@ int main()
     int b = bin_pow(a[0]);
     LL lcm = a[0]/2;
     for (int i = 1; i < n; i++) {
-        if (b != bin_pow(a[i])) ok = 0;
-        lcm *= a[i]/(2*gcd(lcm, a[i]/2));
+        lcm *= ((LL)a[i]/2)/(gcd(lcm, a[i]/2));
+        if (b != bin_pow(a[i]) || lcm <= 0 || lcm > m) ok = 0;
     }
 
     int ans = 0;
-    for (int t = 1; lcm*t <= m; t += 2) {
-        ans++;
-    }
+    for (int t = 1; lcm*t <= m; t += 2)
+        ans += ok;
 
-    cout << ans*ok << endl;
+    cout << ans << endl;
 
     return 0;
 }
