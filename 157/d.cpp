@@ -1,100 +1,77 @@
 /*
-  author: ruruvuvu
-  GitHub account: colon-ku
-
-  created at: 2020-03-01 21:33:41
+    飲んだ魔剤で家が建つ。
+    created at: 2020-04-13 13:06:55
+                2020-04-13 14:12:37 余計な部分を削った版
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-#define all(x) (x).begin(),(x).end()
-#define rep(x, y) for (int x = 0; x < y; x++)
-#define MOD 1000000007
-
-typedef long long LL;
-typedef long double LD;
-
-bool compare_by_b(pair<int, int> a, pair<int, int> b)
+struct UnionFind
 {
-    if (a.second != b.second) {
-        return a.second < b.second;
-    } else {
-        return a.first < b.first;
+    vector<int> par;
+
+    UnionFind(int n) : par(n, -1) {}
+
+    int root(int x) {
+        if (par[x] < 0) return x;
+        else return par[x] = root(par[x]);
     }
-}
 
-ostringstream oss_global;
-string s_global = oss_global.str();
+    bool unite(int x, int y) {
+        int rx = root(x);
+        int ry = root(y);
+        if (rx == ry) return false;
+        if (par[rx] > par[ry]) swap(rx, ry);
+        par[rx] += par[ry];
+        par[ry] = rx;
 
-int par[INT_MAX]; //親の番号
-
-//n要素で初期化
-void init(int n) {
-    for (int i = 0; i < n; i++) par[i] = i;
-}
-
-//木の根を求める
-int root(int x) {
-    if (par[x] == x) { //根
-        return x;
-    } else {           //経路圧縮
-        return par[x] = root(par[x]);
+        return true;
     }
-}
 
-//xとyが同じ集合に属するか否か
-bool same(int x, int y) {
-    return root(x) == root(y);
-}
+    bool same(int x, int y) {
+        int rx = root(x);
+        int ry = root(y);
+        return rx == ry;
+    }
 
-//xとyの属する集合を併合
-void unite(int x, int y) {
-    x = root(x);
-    y = root(y);
-    if (x == y) return;
-
-    par[x] = y;
-}
+    int size(int x) {
+        int rx = root(x);
+        return -par[rx];
+    }
+};
 
 int main()
 {
     int n, m, k;
     cin >> n >> m >> k;
     vector<int> a(m), b(m), c(k), d(k);
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < m; i++)
         cin >> a[i] >> b[i];
+    for (int i = 0; i < k; i++)
+        cin >> c[i] >> d[i];
+
+    UnionFind tr(n);
+    for (int i = 0; i < m; i++) {
+        tr.unite(a[i]-1, b[i]-1);
+    }
+
+    vector<set<int>> notf(n);
+    for (int i = 0; i < m; i++) {
+        notf[a[i]-1].insert(b[i]-1);
+        notf[b[i]-1].insert(a[i]-1);
     }
     for (int i = 0; i < k; i++) {
-        cin >> c[i] >> d[i];
-    }
-
-    init(n);
-
-    for (int i = 0; i < m; i++) {
-        unite(a[i], b[i]);
-    }
-
-    vector<int> ans(n, 0);
-    for (int i = 1; i <= n-1; i++) {
-        for (int j = i+1; j <= n; j++) {
-            for (int l = 0; l < m; l++) {
-                for (int x = 0; x < k; x++) {
-                    if (!(i == a[l] && j == b[l] || i == b[l] && j == a[l])) {
-                        if (!(i == c[x] && j == d[x] || i == d[x] && j == c[x])) {
-                            if (same(i, j)) {
-                                ans[i-1]++;
-                                ans[j-1]++;
-                            }
-                        }
-                    }
-                }
-            }
+        if (tr.same(c[i]-1, d[i]-1)) {
+            notf[c[i]-1].insert(d[i]-1);
+            notf[d[i]-1].insert(c[i]-1);
         }
     }
-
-    for (int i = 0; i < n; i++)
-        cout << ans[i] << " ";
+    
+    for (int i = 0; i < n; i++) {
+        int ans = tr.size(i) - notf[i].size() - 1;
+        cout << ans << " ";
+    }
     cout << endl;
 
     return 0;
