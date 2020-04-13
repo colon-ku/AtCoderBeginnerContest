@@ -1,16 +1,15 @@
 /*
-  author: ruruvuvu
-  GitHub account: colon-ku
-
-  created at: 2020-01-10 21:40:33
+    飲んだ魔剤で家が建つ。
+    created at: 2020-04-13 17:16:45
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
 #define all(x) (x).begin(),(x).end()
-#define rep(x, y) for (int x = 0; x < y; x++)
+#define rev(x) greater<x>()
 #define MOD 1000000007
+#define INF 1000000000
 
 typedef long long LL;
 typedef long double LD;
@@ -24,8 +23,75 @@ bool compare_by_b(pair<int, int> a, pair<int, int> b)
     }
 }
 
-ostringstream oss_global;
-string s_global = oss_global.str();
+LL modpower(LL n, LL m, LL mod)
+{
+    if (m == 0) {
+        return 1;
+    } else if (m % 2 == 0) {
+        LL p = modpower(n, m/2, mod);
+        return p*p % mod;
+    } else {
+        return n*modpower(n, m-1, mod) % mod;
+    }
+}
+
+LL modinv(LL n, LL mod)
+{
+    return modpower(n, mod-2, mod);
+}
+
+LL modcombination(LL n, LL r, LL mod)
+{
+    LL ret = 1;
+
+    for (int i = 0; i < r; i++) {
+        ret *= (n-i);
+        ret %= mod;
+        ret *= modinv(i+1, mod);
+        ret % mod;
+    }
+
+    return ret % mod;
+}
+
+LL gcd(LL k, LL l)
+{
+    if (l > 0) return gcd(l, k%l);
+    else return k;
+}
+
+struct UnionFind
+{
+    vector<int> par;
+
+    UnionFind(int n) : par(n) {
+        for (int i = 0; i < n; i++) par[i] = i;
+    }
+
+    int root(int x) {
+        if (par[x] == x) return x;
+        return par[x] = root(par[x]);
+    }
+
+    void unite(int x, int y) {
+        int rx = root(x);
+        int ry = root(y);
+        if (rx == ry) return;
+        par[rx] = ry;
+    }
+
+    bool same(int x, int y) {
+        int rx = root(x);
+        int ry = root(y);
+        return rx == ry;
+    }
+};
+
+int bin_pow(int n)
+{
+    if (n % 2 == 0) return 1 + bin_pow(n/2);
+    else return 0;
+}
 
 int main()
 {
@@ -35,6 +101,20 @@ int main()
     for (int i = 0; i < n; i++)
         cin >> a[i];
 
+    int ok = 1;
+    int b = bin_pow(a[0]);
+    LL lcm = a[0]/2;
+    for (int i = 1; i < n; i++) {
+        if (b != bin_pow(a[i])) ok = 0;
+        lcm *= a[i]/(2*gcd(lcm, a[i]/2));
+    }
+
+    int ans = 0;
+    for (int t = 1; lcm*t <= m; t += 2) {
+        ans++;
+    }
+
+    cout << ans*ok << endl;
 
     return 0;
 }
