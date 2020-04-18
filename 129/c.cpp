@@ -1,64 +1,50 @@
 /*
-  ∧,,∧
-( 'ω' )つ ＜WA,またお前か！！　
-（m9 ＼ 　　
-　 ＼　 ＼
-　 　 ) ) ＼
-　 ／／ ＼ ＼
-　 (＿） 　 (＿)
+    飲んだ魔剤で家が建つ。
+    created at: 2020-04-18 18:43:01
+                2020-04-18 19:31:28 余計なものを取り除いた版
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-#define all(x) (x).begin(),(x).end()
-#define rep(x, y) for (int x = 0; x < y; x++)
 #define MOD 1000000007
 
-typedef long long LL;
-typedef long double LD;
+typedef unsigned long ul;
 
-bool compare_by_b(pair<int, int> a, pair<int, int> b)
+map<int, long> memo;
+
+long fib(int n)
 {
-    if (a.second != b.second) {
-        return a.second < b.second;
-    } else {
-        return a.first < b.first;
-    }
+    if (n >= 2 && memo[n] > 0) return memo[n];
+    else if (n >= 2) return memo[n] = fib(n-1)%MOD + fib(n-2)%MOD;
+    else return memo[n];
 }
-
-ostringstream oss_global;
-string s_global = oss_global.str();
 
 int main()
 {
-    int N, M;
-    cin >> N >> M;
-    vector<int> a(M+2, -1);
-    for (int i = 1; i <= M; i++)
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(m);
+    for (int i = 0; i < m; i++)
         cin >> a[i];
-    a[M+1] = N+1;
 
-    vector<LL> com(N+1, 0);
-    com[1] = 1; com[2] = 2;
-    for (int i = 3; i <= N; i++)
-        com[i] = com[i-1] + com[i-2];
+    memo[-1] = 0;   //上ることができない
+    memo[0] = 1;    //そのままジャンプするだけ
+    memo[1] = 1;
 
-    LL ans = 1;
-    for (int j = 1; j <= M+1; j++) {
-        int gap = a[j] - a[j-1];
-        switch (gap) {
-            case 1:
-                ans = 0;
-                break;
-            case 2:
-                break;
-            default:
-                ans = (ans * com[gap-2]) % MOD;
-                break;
+    long ans;
+    if (m == 0) {
+        ans = fib(n)%MOD;
+    } else {
+        ans = (fib(a[0]-1)*fib(n-a[m-1]-1))%MOD;
+        for (int i = 1; i < m; i++) {
+            int A = a[i] - a[i-1];
+            ans *= fib(A-2);
+            ans %= MOD;
         }
     }
 
     cout << ans << endl;
+
     return 0;
 }
