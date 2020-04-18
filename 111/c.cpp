@@ -1,87 +1,42 @@
 /*
-  ∧,,∧
-( 'ω' )つ ＜WA,またお前か！！　
-（m9 ＼ 　　
-　 ＼　 ＼
-　 　 ) ) ＼
-　 ／／ ＼ ＼
-　 (＿） 　 (＿)
+    飲んだ魔剤で家が建つ。
+    created at: 2020-04-18 19:54:49
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-#define all(x) (x).begin(),(x).end()
-#define rep(x, y) for (int x = 0; x < y; x++)
-#define INF 100007
-
-typedef long long LL;
-typedef long double LD;
-
-bool compare_by_b(pair<int, int> a, pair<int, int> b)
-{
-    if (a.second != b.second) {
-        return a.second < b.second;
-    } else {
-        return a.first < b.first;
-    }
-}
-
-ostringstream oss_global;
-string s_global = oss_global.str();
+#define all(v) (v).begin(),(v).end()
 
 int main()
 {
     int n;
     cin >> n;
-    vector<int> e(n/2, 0), o(n/2, 0);
+    vector<int> v(n);
+    for (int i = 0; i < n; i++)
+        cin >> v[i];
+
+    vector<pair<int, int>> l(100001), r(100001);
+    for (int i = 0; i < 100001; i++)
+        l[i] = r[i] = make_pair(0, i);
+
     for (int i = 0; i < n; i++) {
-        if (i % 2 == 0) {
-            cin >> e[i/2];
-        } else {
-            cin >> o[i/2];
-        }
+        if (i % 2 == 0) l[v[i]].first++;
+        else r[v[i]].first++;
     }
 
-    vector<pair<int, int>> a(1, {0, 0}), b(1, {0, 0});
-    for (int i = 0; i < n/2; i++) {
-        for (int j = 0; j < n/2; j++) {
-            if (e[i] == a[j].first) {
-                a[j].second++;
-                break;
-            } else if (a[j].first == 0) {
-                a[j].first = e[i];
-                a[j].second = 1;
-                break;
-            }
-        }
-    }
-    for (int i = 0; i < n/2; i++) {
-        for (int j = 0; j < n/2; j++) {
-            if (o[i] == b[j].first) {
-                b[j].second++;
-                break;
-            } else if (b[j].first == 0) {
-                b[j].first = o[i];
-                b[j].second = 1;
-                break;
-            }
-        }
-    }
-
-    sort(all(a), compare_by_b);
-    reverse(all(a));
-    sort(all(b), compare_by_b);
-    reverse(all(b));
+    sort(all(l)); sort(all(r));
 
     int ans;
-    if (a[0].first == b[0].first) {
-        ans = min(n - a[0].first - b[1].first,
-                  n - a[1].first - b[0].first);
+    if (l[100000].second != r[100000].second) {
+        ans = ((n+1)/2-l[100000].first)+(n/2-r[100000].first);
     } else {
-        ans = n - a[0].first - b[0].first;
+        int a = ((n+1)/2-l[99999].first)+(n/2-r[100000].first);
+        int b = ((n+1)/2-l[100000].first)+(n/2-r[99999].first);
+        ans = min(a, b);
     }
 
     cout << ans << endl;
+
     return 0;
 }
