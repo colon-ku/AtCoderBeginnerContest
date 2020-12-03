@@ -3,10 +3,7 @@
     created at: 
 */
 
-#include <iostream>
-#include <vector>
-#include <map>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define all(x) (x).begin(),(x).end()
