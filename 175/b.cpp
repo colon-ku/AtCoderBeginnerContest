@@ -14,24 +14,22 @@ int main()
 {
     int n;
     cin >> n;
-    set<int> l;
+    vector<int> l(n);
     for (int i = 0; i < n; i++) {
-        int temp;
-        cin >> temp;
-        l.insert(temp);
+        cin >> l[i];
     }
-
-    int c = 0;
-    for (auto x : l) {
-        c++;
-    }
-    cout << c << endl;
-
-    map<vector<int>, int> cnt;
 
     int ans = 0;
-    for (auto itr = cnt.begin(); itr != cnt.end(); itr++) {
-        ans++;
+    for (int i = 0; i < n; i++) {
+        for (int j = i+1; j < n; j++) {
+            for (int k = j+1; k < n; k++) {
+                if (l[i] != l[j] && l[j] != l[k] && l[k] != l[i]) {
+                    if (l[i] < l[j] + l[k] && l[j] < l[k] + l[i] && l[k] < l[i] + l[j]) {
+                        ans++;
+                    }
+                }
+            }
+        }
     }
 
     cout << ans << endl;
