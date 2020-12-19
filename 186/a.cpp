@@ -3,8 +3,8 @@
 
 /*
     飲んだ魔剤で家が建つ。
-    created at: 
-    cleared at: 
+    created at: 2020-12-19 21:00:06
+    cleared at: 2020-12-19 21:00:56
 */
 
 #include <bits/stdc++.h>
@@ -16,7 +16,10 @@ using namespace std;
 
 int main()
 {
-    
+    int n, w;
+    cin >> n >> w;
+
+    cout << (int)(n/w) << endl;
 
     return 0;
 }
