@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc144/tasks/abc144_a
+// Link to the Problem
+// https://atcoder.jp/contests/abc144/tasks/abc144_a
 /*
   author: ruruvuvu
   GitHub account: colon-ku

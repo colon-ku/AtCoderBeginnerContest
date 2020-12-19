@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc112/tasks/abc112_b
+// Link to the Problem
+// https://atcoder.jp/contests/abc112/tasks/abc112_b
 /*
   ∧,,∧
 ( 'ω' )つ ＜WA,またお前か！！　

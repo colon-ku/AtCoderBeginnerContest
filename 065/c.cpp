@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc065/tasks/abc065_c
+// Link to the Problem
+// https://atcoder.jp/contests/abc065/tasks/abc065_c
 /*
     飲んだ魔剤で家が建つ。
     created at: 2020-04-23 16:46:45

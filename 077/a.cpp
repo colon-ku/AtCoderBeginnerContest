@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc077/tasks/abc077_a
+// Link to the Problem
+// https://atcoder.jp/contests/abc077/tasks/abc077_a
 #include <cstdio>
 
 char s[6];

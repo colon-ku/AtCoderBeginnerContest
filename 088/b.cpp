@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc088/tasks/abc088_b
+// Link to the Problem
+// https://atcoder.jp/contests/abc088/tasks/abc088_b
 #include <iostream>
 
 using namespace std;

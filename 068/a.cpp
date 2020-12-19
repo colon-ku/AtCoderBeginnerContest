@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc068/tasks/abc068_a
+// Link to the Problem
+// https://atcoder.jp/contests/abc068/tasks/abc068_a
 #include <cstdio>
 
 int n;

@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc101/tasks/abc101_c
+// Link to the Problem
+// https://atcoder.jp/contests/abc101/tasks/abc101_c
 #include <iostream>
 #include <cmath>
 

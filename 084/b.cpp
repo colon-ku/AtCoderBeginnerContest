@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc084/tasks/abc084_b
+// Link to the Problem
+// https://atcoder.jp/contests/abc084/tasks/abc084_b
 #include <iostream>
 #include <string>
 

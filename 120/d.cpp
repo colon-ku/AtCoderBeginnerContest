@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc120/tasks/abc120_d
+// Link to the Problem
+// https://atcoder.jp/contests/abc120/tasks/abc120_d
 /*
   ∧,,∧
 ( 'ω' )つ ＜またお前か！！　

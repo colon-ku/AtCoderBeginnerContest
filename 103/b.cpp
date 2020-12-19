@@ -1,4 +1,5 @@
-# https://atcoder.jp/contests/abc103/tasks/abc103_b
+// Link to the Problem
+// https://atcoder.jp/contests/abc103/tasks/abc103_b
 /*
     飲んだ魔剤で家が建つ。
     created at: 2020-04-02 22:31:43
