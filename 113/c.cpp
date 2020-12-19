@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc113/tasks/abc113_c
 /*
   ∧,,∧
 ( 'ω' )つ ＜WA,またお前か！！　

@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc151/tasks/abc151_b
 /*
   author: ruruvuvu
   GitHub account: colon-ku

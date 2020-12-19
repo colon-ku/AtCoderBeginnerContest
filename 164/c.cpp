@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc164/tasks/abc164_c
 /*
     飲んだ魔剤で家が建つ。
     created at: 2020-04-26 21:04:44

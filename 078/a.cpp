@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc078/tasks/abc078_a
 #include <cstdio>
 
 char x, y;

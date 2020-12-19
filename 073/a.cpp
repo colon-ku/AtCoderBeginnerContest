@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc073/tasks/abc073_a
 #include <cstdio>
 
 int n;

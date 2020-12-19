@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc072/tasks/abc072_a
 #include <cstdio>
 #include <algorithm>
 

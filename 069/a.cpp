@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc069/tasks/abc069_a
 #include <cstdio>
 
 using namespace std;

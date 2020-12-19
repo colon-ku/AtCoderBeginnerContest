@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc147/tasks/abc147_a
 /*
   ∧,,∧
 ( 'ω' )つ ＜WA,またお前か！！　

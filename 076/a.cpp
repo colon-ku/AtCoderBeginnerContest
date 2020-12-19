@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc076/tasks/abc076_a
 #include <cstdio>
 
 int R, G;

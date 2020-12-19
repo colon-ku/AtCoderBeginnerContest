@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc088/tasks/abc088_a
 #include <iostream>
 
 using namespace std;
