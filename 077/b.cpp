@@ -1,5 +1,6 @@
 // Link to the Problem
 // https://atcoder.jp/contests/abc077/tasks/abc077_b
+
 #include <cstdio>
 #include <cmath>
 

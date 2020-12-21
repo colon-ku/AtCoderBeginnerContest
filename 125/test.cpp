@@ -1,4 +1,3 @@
-// Link to the Problem
 /*
   ∧,,∧
 ( 'ω' )つ ＜WA,またお前か！！　

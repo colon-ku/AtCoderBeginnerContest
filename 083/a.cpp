@@ -1,5 +1,6 @@
 // Link to the Problem
 // https://atcoder.jp/contests/abc083/tasks/abc083_a
+
 #include <cstdio>
 
 int a, b, c, d;

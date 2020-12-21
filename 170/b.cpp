@@ -1,5 +1,6 @@
 // Link to the Problem
 // https://atcoder.jp/contests/abc170/tasks/abc170_b
+
 /*
     飲んだ魔剤で家が建つ。
     created at: 2020-09-23 06:07:24

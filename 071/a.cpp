@@ -1,5 +1,6 @@
 // Link to the Problem
 // https://atcoder.jp/contests/abc071/tasks/abc071_a
+
 #include <cstdio>
 
 int x, a, b;

@@ -1,5 +1,6 @@
 // Link to the Problem
 // https://atcoder.jp/contests/abc118/tasks/abc118_d
+
 /*
   ∧,,∧
 ( 'ω' )つ ＜またお前か！！　

@@ -1,5 +1,6 @@
 // Link to the Problem
 // https://atcoder.jp/contests/abc086/tasks/abc086_a
+
 #include <iostream>
 
 int a, b;

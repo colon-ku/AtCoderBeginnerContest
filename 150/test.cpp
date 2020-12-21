@@ -1,4 +1,3 @@
-// Link to the Problem
 #include <iostream>
 #include <algorithm> //for next_permutation
 #include <vector> //for vector

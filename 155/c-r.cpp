@@ -1,4 +1,3 @@
-// Link to the Problem
 /*
     飲んだ魔剤で家が建つ。
     created at: 2020-03-14 19:35:10

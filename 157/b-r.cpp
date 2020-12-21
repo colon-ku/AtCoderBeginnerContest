@@ -1,4 +1,3 @@
-// Link to the Problem
 /*
   author: ruruvuvu
   GitHub account: colon-ku

@@ -1,5 +1,6 @@
 // Link to the Problem
 // https://atcoder.jp/contests/abc090/tasks/abc090_a
+
 #include <iostream>
 
 using namespace std;

@@ -1,4 +1,3 @@
-// Link to the Problem
 #include <iostream>
 #include <vector>
 #include <climits>

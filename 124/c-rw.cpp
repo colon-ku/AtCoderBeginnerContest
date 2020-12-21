@@ -1,4 +1,3 @@
-// Link to the Problem
 #include <bits/stdc++.h>
 #include <string>
 using namespace std;

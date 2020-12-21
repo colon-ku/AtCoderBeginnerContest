@@ -1,5 +1,6 @@
 // Link to the Problem
 // https://atcoder.jp/contests/abc107/tasks/abc107_b
+
 /*
   author: ruruvuvu
   GitHub account: colon-ku
