@@ -46,19 +46,18 @@ int main()
     LL s = x*x + y*y;
     LL ans;
 
-    // cout << rtceil(s) << endl;
-
-    if (issq(s)) {
+    if (s == r*r) {
+        ans = 1ll;
+    } else if (s < r*r) {
+        ans = 2ll;
+    } else if (issq(s)) {
         if (rtceil(s) % r == 0) {
-            // cout << "a" << endl;
             ans = rtceil(s) / r;
         } else {
-            // cout << "b" << endl;
             ans = rtceil(s) / r + 1;
         }
     } else {
-        // cout << "c" << endl;
-        ans = rtceil(s) / r + 1;
+        ans = rtceil(s)/r + 1;
     }
 
     cout << ans << endl;
